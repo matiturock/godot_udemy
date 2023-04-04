@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://drrqtglsse6u1"]
+
+[ext_resource type="Texture2D" uid="uid://ca4ch3y4olk7b" path="res://Assets/Tiles/tile_0068.png" id="1_liamx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lc6fa"]
+size = Vector2(16, 8)
+
+[node name="Spike" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -9)
+texture = ExtResource("1_liamx")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_lc6fa")
