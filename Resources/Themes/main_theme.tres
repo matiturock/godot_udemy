@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://bqanki8bg2rn0"]
+
+[ext_resource type="FontFile" uid="uid://c1e61ewtu1c8e" path="res://Resources/Fonts/bitpotion.ttf" id="1_rfovi"]
+
+[resource]
+default_font = ExtResource("1_rfovi")
+default_font_size = 26

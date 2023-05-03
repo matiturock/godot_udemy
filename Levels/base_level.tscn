@@ -1,12 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://bu7x2si8jgqgr"]
+[gd_scene load_steps=7 format=3 uid="uid://bu7x2si8jgqgr"]
 
 [ext_resource type="Script" path="res://Levels/base_level.gd" id="1_pnjn6"]
+[ext_resource type="PackedScene" uid="uid://cqtfvd2iqboja" path="res://UI/ui_level.tscn" id="2_lexv6"]
 [ext_resource type="PackedScene" uid="uid://desthofhn1gcu" path="res://Characteres/Player/player.tscn" id="2_yjsv8"]
 [ext_resource type="PackedScene" uid="uid://smvse720rmcy" path="res://Controllers/game_camera.tscn" id="3_cabei"]
 [ext_resource type="TileSet" uid="uid://63cjkd87kmay" path="res://Resources/Tilemaps/tile_set.tres" id="4_oc4hw"]
+[ext_resource type="PackedScene" uid="uid://rscucl65c2o3" path="res://Levels/void_death.tscn" id="5_4w3vn"]
 
-[node name="BaseLevel" type="Node"]
+[node name="BaseLevel" type="Node" groups=["base_level"]]
 script = ExtResource("1_pnjn6")
+
+[node name="UILevel" parent="." instance=ExtResource("2_lexv6")]
 
 [node name="Player" parent="." instance=ExtResource("2_yjsv8")]
 
@@ -22,3 +26,7 @@ format = 2
 [node name="Hazards" type="Node" parent="."]
 
 [node name="Enemies" type="Node" parent="."]
+
+[node name="Goal" type="Node" parent="."]
+
+[node name="VoidDeath" parent="." instance=ExtResource("5_4w3vn")]

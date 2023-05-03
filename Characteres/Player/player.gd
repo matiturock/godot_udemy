@@ -18,6 +18,7 @@ enum State { NORMAL, DASH }
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var has_double_jump: bool = false
+var has_dash: bool = false
 
 var current_state: State = State.NORMAL
 var is_state_new: bool = true
@@ -25,6 +26,7 @@ var is_state_new: bool = true
 
 func _ready() -> void:
 	hit_dash_collision_shape_2d.set_deferred("disabled", true)
+
 
 func _process(delta: float) -> void:
 	match current_state:
@@ -76,13 +78,15 @@ func process_normal(delta: float) -> void:
 	if was_on_floor and not is_on_floor():
 		coyote_timer.start()
 	
-	if Input.is_action_just_pressed("dash"):
+	if has_dash and Input.is_action_just_pressed("dash"):
 		call_deferred("state_cotroller", State.DASH)
+		has_dash = false
 	
 	update_aniamtion()
 	
 	if is_on_floor():
 		has_double_jump = true
+		has_dash = true
 
 
 func process_dash(_delta: float) -> void:
@@ -119,3 +123,4 @@ func update_aniamtion() -> void:
 
 func _on_hazard_area_2d_area_entered(_area: Area2D) -> void:
 	emit_signal("die")
+

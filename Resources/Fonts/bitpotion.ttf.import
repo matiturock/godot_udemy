@@ -1,0 +1,39 @@
+[remap]
+
+importer="font_data_dynamic"
+type="FontFile"
+uid="uid://c1e61ewtu1c8e"
+path="res://.godot/imported/bitpotion.ttf-2cc357a66b563316696db296b4945f2d.fontdata"
+
+[deps]
+
+source_file="res://Resources/Fonts/bitpotion.ttf"
+dest_files=["res://.godot/imported/bitpotion.ttf-2cc357a66b563316696db296b4945f2d.fontdata"]
+
+[params]
+
+Rendering=null
+antialiasing=0
+generate_mipmaps=false
+multichannel_signed_distance_field=false
+msdf_pixel_range=8
+msdf_size=48
+allow_system_fallback=true
+force_autohinter=false
+hinting=0
+subpixel_positioning=0
+oversampling=0.0
+Fallbacks=null
+fallbacks=[]
+Compress=null
+compress=true
+preload=[{
+"chars": [],
+"glyphs": [],
+"name": "New Configuration",
+"size": Vector2i(16, 0),
+"variation_embolden": 0.0
+}]
+language_support={}
+script_support={}
+opentype_features={}

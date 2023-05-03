@@ -1,6 +1,10 @@
-res://Levels/Levels
-res://Levels
 res://Characteres/Enemies
+res://UI
+res://Resources/Themes
+res://Levels/Levels
+res://Resources/Fonts
+res://Levels
+res://Collectables/Flag
 res://Resources/Tilemaps
 res://Hazards
 res://Collectables

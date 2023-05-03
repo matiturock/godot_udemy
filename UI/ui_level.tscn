@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://cqtfvd2iqboja"]
+
+[ext_resource type="Theme" uid="uid://bqanki8bg2rn0" path="res://Resources/Themes/main_theme.tres" id="1_l1ecp"]
+[ext_resource type="Script" path="res://UI/ui_level.gd" id="1_v5iio"]
+[ext_resource type="LabelSettings" uid="uid://bg6bk5chevug1" path="res://Resources/Themes/label_settings.tres" id="2_eg8cq"]
+[ext_resource type="Texture2D" uid="uid://50ugsb31c5q8" path="res://Assets/Collectables/Coin/tile_0151.png" id="3_ltghh"]
+[ext_resource type="Texture2D" uid="uid://d45dajddkjh3" path="res://Assets/Collectables/Coin/tile_0152.png" id="4_kk4cn"]
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_irak0"]
+frames = 2
+frame_0/texture = ExtResource("3_ltghh")
+frame_0/duration = 0.5
+frame_1/texture = ExtResource("4_kk4cn")
+frame_1/duration = 0.5
+
+[node name="UILevel" type="CanvasLayer"]
+script = ExtResource("1_v5iio")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_l1ecp")
+theme_override_constants/margin_left = 9
+theme_override_constants/margin_top = 9
+theme_override_constants/margin_right = 9
+theme_override_constants/margin_bottom = 9
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "An icon of a coin..."
+texture = SubResource("AnimatedTexture_irak0")
+
+[node name="CoinLabel" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+size_flags_stretch_ratio = 0.28
+text = "A label"
+label_settings = ExtResource("2_eg8cq")

@@ -99,7 +99,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Coin" type="Node2D"]
+[node name="Coin" type="Node2D" groups=["coin"]]
 position = Vector2(0, -5.98918)
 script = ExtResource("1_jovfs")
 

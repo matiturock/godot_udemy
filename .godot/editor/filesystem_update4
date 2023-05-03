@@ -9,3 +9,17 @@ res://Collectables/coin.tscn
 res://Levels/base_level.tscn
 res://Controllers/game_camera.gd
 res://Characteres/Enemies/ground_enemy.gd
+res://Characteres/Player/player.gd
+res://Collectables/Flag/flag.tscn
+res://Collectables/Flag/flag.gd
+res://Levels/base_level.gd
+res://Characteres/Player/Label.gd
+res://Levels/void_death.tscn
+res://Collectables/coin.gd
+res://Resources/Fonts/font.tres
+res://Resources/Themes/main_theme.tres
+res://Resources/Themes/label_settings.tres
+res://UI/ui_level.gd
+res://UI/ui_level.tscn
+res://Characteres/Enemies/enemy_spawner_marker_2d.tscn
+res://Characteres/Enemies/enemy_spawner_marker_2d.gd
