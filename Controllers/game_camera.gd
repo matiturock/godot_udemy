@@ -1,10 +1,12 @@
 extends Camera2D
 
 @export var background_color: Color
+@export var speed_smoothing: float = 10.0
 
 
 func _ready() -> void:
 	RenderingServer.set_default_clear_color(background_color)
+	set_position_smoothing_speed(speed_smoothing)
 
 
 func _process(_delta: float) -> void:

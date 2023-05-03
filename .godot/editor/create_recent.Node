@@ -1,10 +1,11 @@
-Node
-TileMap
 CollisionShape2D
 Area2D
+RayCast2D
+Node
+CharacterBody2D
+AnimatedSprite2D
+TileMap
 Sprite2D
 AnimationPlayer
-AnimatedSprite2D
 Timer
 Camera2D
-CharacterBody2D

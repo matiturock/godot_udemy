@@ -1,17 +1,20 @@
-[gd_scene load_steps=8 format=3 uid="uid://desthofhn1gcu"]
+[gd_scene load_steps=9 format=3 uid="uid://desthofhn1gcu"]
 
 [ext_resource type="Texture2D" uid="uid://baun6smef1aio" path="res://Assets/Characters/character_0000.png" id="1_4ywgp"]
 [ext_resource type="Script" path="res://Characteres/Player/player.gd" id="1_7b043"]
 [ext_resource type="Texture2D" uid="uid://brcxa160dywpc" path="res://Assets/Characters/character_0001.png" id="3_k3ta8"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_064wc"]
-radius = 14.0
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lbbbr"]
 size = Vector2(14, 20)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_064wc"]
+radius = 14.0
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ejbsa"]
 size = Vector2(14, 18)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ypofy"]
+radius = 16.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1xcdu"]
 animations = [{
@@ -44,6 +47,7 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_layer = 2
 script = ExtResource("1_7b043")
 hotizontal_desaceletarion = 50.0
 
@@ -51,27 +55,36 @@ hotizontal_desaceletarion = 50.0
 wait_time = 0.2
 one_shot = true
 
+[node name="WorldCollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -10)
+shape = SubResource("RectangleShape2D_lbbbr")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
 [node name="CollectableArea2D" type="Area2D" parent="."]
 collision_layer = 2
-collision_mask = 8
+collision_mask = 0
 
 [node name="CollectableCollisionShape2D" type="CollisionShape2D" parent="CollectableArea2D"]
 position = Vector2(0, -12)
 shape = SubResource("CircleShape2D_064wc")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -10)
-shape = SubResource("RectangleShape2D_lbbbr")
-debug_color = Color(0, 0.6, 0.701961, 0.419608)
-
 [node name="HazardArea2D" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 16
+collision_layer = 0
+collision_mask = 48
 
 [node name="HazardCollisionShape2D" type="CollisionShape2D" parent="HazardArea2D"]
 position = Vector2(0, -9)
 shape = SubResource("RectangleShape2D_ejbsa")
 debug_color = Color(0.741176, 0.34902, 0.784314, 0.419608)
+
+[node name="DashArea2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="HitDashCollisionShape2D" type="CollisionShape2D" parent="DashArea2D"]
+position = Vector2(0, -12)
+shape = SubResource("CircleShape2D_ypofy")
+debug_color = Color(0.827451, 0.337255, 0.541176, 0.419608)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -12)

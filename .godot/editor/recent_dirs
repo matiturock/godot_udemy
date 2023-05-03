@@ -1,5 +1,7 @@
-res://Resources/Tilemaps
+res://Levels/Levels
 res://Levels
+res://Characteres/Enemies
+res://Resources/Tilemaps
 res://Hazards
 res://Collectables
 res://Controllers

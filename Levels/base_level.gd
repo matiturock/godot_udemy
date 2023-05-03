@@ -1,5 +1,6 @@
 extends Node
 
+@export_category("Scenes")
 @export var player_scene: PackedScene = preload("res://Characteres/Player/player.tscn")
 var spawn_position: Vector2 = Vector2.ZERO
 
@@ -14,7 +15,7 @@ func _ready() -> void:
 
 func register_player(player: Player) -> void:
 	current_player = player
-	current_player.connect("die", on_die_player, CONNECT_DEFERRED)
+	current_player.connect("die", on_player_die, CONNECT_DEFERRED)
 
 
 func create_player() -> void:
@@ -24,6 +25,6 @@ func create_player() -> void:
 	register_player(new_player)
 
 
-func on_die_player() -> void:
-	current_player.call_deferred("queue_free")
+func on_player_die() -> void:
+	current_player.queue_free()
 	create_player()

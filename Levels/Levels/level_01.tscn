@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8bbkqvibiy6j"]
+
+[ext_resource type="PackedScene" uid="uid://bu7x2si8jgqgr" path="res://Levels/base_level.tscn" id="1_1oor1"]
+[ext_resource type="PackedScene" uid="uid://yk22mpecccsj" path="res://Collectables/coin.tscn" id="2_u3f6y"]
+[ext_resource type="PackedScene" uid="uid://drrqtglsse6u1" path="res://Hazards/spike.tscn" id="3_c5eu3"]
+[ext_resource type="PackedScene" uid="uid://bon7d3kkl252q" path="res://Characteres/Enemies/ground_enemy.tscn" id="4_5eugn"]
+
+[node name="Level_01" instance=ExtResource("1_1oor1")]
+
+[node name="Player" parent="." index="0"]
+position = Vector2(-63, 0)
+
+[node name="TileMap" parent="." index="2"]
+layer_0/tile_data = PackedInt32Array(196616, 196608, 7, 131080, 196608, 1, 196615, 131072, 7, 131079, 131072, 1, 196614, 131072, 7, 131078, 131072, 6, 65542, 196608, 6, 6, 196608, 1, 196613, 131072, 7, 131077, 131072, 6, 65541, 131072, 6, 5, 131072, 1, 196612, 131072, 7, 131076, 131072, 6, 65540, 131072, 6, 4, 131072, 1, 196611, 131072, 7, 131075, 131072, 6, 65539, 131072, 6, 3, 131072, 1, 196610, 131072, 7, 131074, 131072, 6, 65538, 131072, 6, 2, 65536, 1, 196609, 131072, 7, 131073, 131072, 6, 65537, 131072, 1, 196608, 131072, 7, 131072, 131072, 6, 65536, 131072, 1, 262143, 131072, 7, 196607, 131072, 6, 131071, 131072, 1, 262142, 131072, 7, 196606, 131072, 6, 131070, 131072, 1, 262141, 131072, 7, 196605, 131072, 6, 131069, 131072, 1, 262140, 131072, 7, 196604, 131072, 6, 131068, 131072, 6, 65532, 196608, 1, 262139, 131072, 7, 196603, 131072, 6, 131067, 131072, 6, 65531, 131072, 1, 262138, 131072, 7, 196602, 131072, 6, 131066, 131072, 6, 65530, 131072, 1, 262137, 131072, 7, 196601, 131072, 6, 131065, 65536, 6, 65529, 65536, 1, 262136, 131072, 7, 196600, 131072, 1, 262135, 65536, 7, 196599, 65536, 1)
+
+[node name="Coin" parent="Collectables" index="0" instance=ExtResource("2_u3f6y")]
+position = Vector2(90, -9)
+
+[node name="Coin2" parent="Collectables" index="1" instance=ExtResource("2_u3f6y")]
+position = Vector2(117, -9)
+
+[node name="Coin3" parent="Collectables" index="2" instance=ExtResource("2_u3f6y")]
+position = Vector2(63, -9)
+
+[node name="Spike" parent="Hazards" index="0" instance=ExtResource("3_c5eu3")]
+position = Vector2(-117, 0)
+
+[node name="Spike2" parent="Hazards" index="1" instance=ExtResource("3_c5eu3")]
+position = Vector2(-135, 36)
+
+[node name="GroundEnemy" parent="Enemies" index="0" instance=ExtResource("4_5eugn")]
+position = Vector2(27, 18)

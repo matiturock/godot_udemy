@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bu7x2si8jgqgr"]
+[gd_scene load_steps=5 format=3 uid="uid://bu7x2si8jgqgr"]
 
 [ext_resource type="Script" path="res://Levels/base_level.gd" id="1_pnjn6"]
 [ext_resource type="PackedScene" uid="uid://desthofhn1gcu" path="res://Characteres/Player/player.tscn" id="2_yjsv8"]
 [ext_resource type="PackedScene" uid="uid://smvse720rmcy" path="res://Controllers/game_camera.tscn" id="3_cabei"]
 [ext_resource type="TileSet" uid="uid://63cjkd87kmay" path="res://Resources/Tilemaps/tile_set.tres" id="4_oc4hw"]
-[ext_resource type="PackedScene" uid="uid://drrqtglsse6u1" path="res://Hazards/spike.tscn" id="5_udg6q"]
 
 [node name="BaseLevel" type="Node"]
 script = ExtResource("1_pnjn6")
@@ -12,18 +11,14 @@ script = ExtResource("1_pnjn6")
 [node name="Player" parent="." instance=ExtResource("2_yjsv8")]
 
 [node name="GameCamera" parent="." instance=ExtResource("3_cabei")]
+position = Vector2(0, -9)
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("4_oc4hw")
 format = 2
-layer_0/tile_data = PackedInt32Array(131075, 196608, 0, 131074, 131072, 0, 131073, 131072, 0, 131072, 131072, 0, 196607, 131072, 0, 196606, 131072, 0, 196605, 131072, 0, 196604, 65536, 0, 131086, 196608, 0, 131085, 131072, 0, 131084, 131072, 0, 131083, 131072, 0, 131082, 131072, 0, 131081, 131072, 0, 131080, 131072, 0, 131079, 131072, 0, 131078, 131072, 0, 131077, 65536, 0)
 
 [node name="Collectables" type="Node" parent="."]
 
 [node name="Hazards" type="Node" parent="."]
 
-[node name="Spike" parent="Hazards" instance=ExtResource("5_udg6q")]
-position = Vector2(45, 36)
-
-[node name="Spike2" parent="Hazards" instance=ExtResource("5_udg6q")]
-position = Vector2(243, 36)
+[node name="Enemies" type="Node" parent="."]

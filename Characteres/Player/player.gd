@@ -2,10 +2,15 @@ class_name Player extends CharacterBody2D
 
 signal die
 
+enum State { NORMAL, DASH }
+
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var coyote_timer: Timer = $CoyoteTimer
+@onready var hit_dash_collision_shape_2d: CollisionShape2D = $DashArea2D/HitDashCollisionShape2D
 
 @export var speed: float = 150.0
+@export var dash_speed: float = 400.0
+@export var dash_horizontal_desaceleration: float = 10.0
 @export var jump_velocity: float = -400.0
 @export var horizontal_aceleration: float = 1_500.0
 @export var hotizontal_desaceletarion: float = 275.0
@@ -14,8 +19,34 @@ signal die
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var has_double_jump: bool = false
 
+var current_state: State = State.NORMAL
+var is_state_new: bool = true
+
+
+func _ready() -> void:
+	hit_dash_collision_shape_2d.set_deferred("disabled", true)
 
 func _process(delta: float) -> void:
+	match current_state:
+		State.NORMAL:
+			process_normal(delta)
+		State.DASH:
+			process_dash(delta)
+		_:
+			printerr("Incorrect State")
+	
+	is_state_new = false
+
+
+func state_cotroller(new_state: State) -> void:
+	current_state = new_state
+	is_state_new = true
+
+
+func process_normal(delta: float) -> void:
+	if is_state_new:
+		hit_dash_collision_shape_2d.set_deferred("disabled", true)
+	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y += gravity * delta
@@ -45,10 +76,33 @@ func _process(delta: float) -> void:
 	if was_on_floor and not is_on_floor():
 		coyote_timer.start()
 	
+	if Input.is_action_just_pressed("dash"):
+		call_deferred("state_cotroller", State.DASH)
+	
 	update_aniamtion()
 	
 	if is_on_floor():
 		has_double_jump = true
+
+
+func process_dash(_delta: float) -> void:
+	if is_state_new:
+		hit_dash_collision_shape_2d.set_deferred("disabled", false)
+		animated_sprite_2d.play("jump")
+		var dash_direction: int = 1
+		
+		if velocity.x != 0:
+			dash_direction = sign(velocity.x)
+		else:
+			dash_direction = 1 if animated_sprite_2d.flip_h else -1
+		
+		velocity = Vector2(dash_speed * dash_direction, 0)
+	
+	velocity.x = move_toward(velocity.x, 0.0, dash_horizontal_desaceleration)
+	move_and_slide()
+	
+	if absf(velocity.x) < speed:
+		call_deferred("state_cotroller", State.NORMAL)
 
 
 func update_aniamtion() -> void:
