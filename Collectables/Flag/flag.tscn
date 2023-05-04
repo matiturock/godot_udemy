@@ -22,7 +22,7 @@ animations = [{
 "speed": 4.0
 }]
 
-[node name="Flag" type="Node2D"]
+[node name="Flag" type="Node2D" groups=["goal"]]
 script = ExtResource("1_g3ii8")
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -43,3 +43,5 @@ sprite_frames = SubResource("SpriteFrames_svdur")
 animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.816582
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

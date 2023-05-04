@@ -5,3 +5,7 @@
 [resource]
 default_font = ExtResource("1_rfovi")
 default_font_size = 26
+MarginContainer/constants/margin_bottom = 4
+MarginContainer/constants/margin_left = 4
+MarginContainer/constants/margin_right = 4
+MarginContainer/constants/margin_top = 4

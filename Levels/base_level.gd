@@ -4,20 +4,20 @@ signal coins_update
 
 @export_category("Scenes")
 @export var player_scene: PackedScene = preload("res://Characteres/Player/player.tscn")
-@export var enemy_marker_postion: PackedScene = preload("res://Characteres/Enemies/enemy_spawner_marker_2d.tscn")
-var spawn_position: Vector2 = Vector2.ZERO
+@export var level_complete: PackedScene = preload("res://UI/level_complete.tscn")
 
 @onready var current_player: CharacterBody2D = $Player
+
+var spawn_position: Vector2 = Vector2.ZERO
 
 var total_coins: int = 0
 var collected_coins: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	spawn_position = current_player.global_position
 	register_player(current_player)
 	load_total_coins()
-	mark_enemies_position()
+	load_goal()
 
 
 func load_total_coins() -> void:
@@ -25,16 +25,14 @@ func load_total_coins() -> void:
 	emit_signal("coins_update", total_coins, collected_coins)
 
 
-func mark_enemies_position() -> void:
-	var enemies: Array[Node] = get_tree().get_nodes_in_group("enemy")
-	for enemy in enemies:
-		var new_spawn_position = enemy_marker_postion.instantiate() as Marker2D
-		new_spawn_position.global_position = enemy.global_position
-		enemy.get_
+func load_goal() -> void:
+	var flag: Flag = get_tree().get_nodes_in_group("goal")[0]
+	flag.player_won.connect(on_player_won)
 
 
 func register_player(player: Player) -> void:
 	current_player = player
+	spawn_position = current_player.global_position
 	current_player.connect("die", on_player_die, CONNECT_DEFERRED)
 
 
@@ -46,10 +44,17 @@ func create_player() -> void:
 
 
 func on_player_die() -> void:
-	current_player.queue_free()
-	create_player()
+#	current_player.queue_free()
+#	create_player()
+	get_tree().reload_current_scene()
 
 
 func coin_collected() -> void:
 	collected_coins += 1
 	emit_signal("coins_update", total_coins, collected_coins)
+
+
+func on_player_won() -> void:
+	var new_level_complete: CanvasLayer = level_complete.instantiate()
+	add_child(new_level_complete)
+	#LevelManager.change_level(LevelManager.current_level_index + 1)
