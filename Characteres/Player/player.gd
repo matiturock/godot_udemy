@@ -2,11 +2,16 @@ class_name Player extends CharacterBody2D
 
 signal die
 
-enum State { NORMAL, DASH }
+enum State { NORMAL, DASH, DEAD }
+
+var player_death_scene: PackedScene = preload("res://Characteres/Player/player_death.tscn")
+var footstep_particles: PackedScene = preload("res://Characteres/Player/footsteps_particles.tscn")
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var coyote_timer: Timer = $CoyoteTimer
 @onready var hit_dash_collision_shape_2d: CollisionShape2D = $DashArea2D/HitDashCollisionShape2D
+@onready var dash_gpu_particles_2d: GPUParticles2D = $DashGPUParticles2D
 
 @export var speed: float = 150.0
 @export var dash_speed: float = 400.0
@@ -22,6 +27,14 @@ var has_dash: bool = false
 
 var current_state: State = State.NORMAL
 var is_state_new: bool = true
+var is_death: bool = false
+
+var life: int:
+	get: return life
+	set(value): 
+		if value > life:
+			life = 0
+		life = value
 
 
 func _ready() -> void:
@@ -31,9 +44,12 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	match current_state:
 		State.NORMAL:
+			set_process_input(true)
 			process_normal(delta)
 		State.DASH:
 			process_dash(delta)
+		State.DEAD:
+			set_process_input(false)
 		_:
 			printerr("Incorrect State")
 	
@@ -47,6 +63,7 @@ func state_cotroller(new_state: State) -> void:
 
 func process_normal(delta: float) -> void:
 	if is_state_new:
+		dash_gpu_particles_2d.emitting = false
 		hit_dash_collision_shape_2d.set_deferred("disabled", true)
 	
 	# Add the gravity.
@@ -60,6 +77,7 @@ func process_normal(delta: float) -> void:
 	if Input.is_action_just_pressed("jump") and can_jump:
 		velocity.y = jump_velocity
 		if not is_on_floor() and coyote_timer.is_stopped():
+			EventBus.apply_camera_shake(0.5)
 			has_double_jump = false
 		coyote_timer.stop()
 	
@@ -91,6 +109,8 @@ func process_normal(delta: float) -> void:
 
 func process_dash(_delta: float) -> void:
 	if is_state_new:
+		dash_gpu_particles_2d.emitting = true
+		EventBus.apply_camera_shake(0.75)
 		hit_dash_collision_shape_2d.set_deferred("disabled", false)
 		animated_sprite_2d.play("jump")
 		var dash_direction: int = 1
@@ -121,6 +141,29 @@ func update_aniamtion() -> void:
 		animated_sprite_2d.flip_h = velocity.x > 0
 
 
-func _on_hazard_area_2d_area_entered(_area: Area2D) -> void:
+func kill() -> void:
+	if is_death: return
+	is_death = true
+	
+	EventBus.apply_camera_shake(1)
+	var player_death: CharacterBody2D = player_death_scene.instantiate()
+	player_death.global_position = self.global_position
+	player_death.set_velocity(velocity)
+	animated_sprite_2d.set_deferred("visible", false)
+	get_parent().add_child(player_death)
+	await get_tree().create_timer(1).timeout
 	emit_signal("die")
 
+
+func _on_hazard_area_2d_area_entered(_area: Area2D) -> void:
+	call_deferred("kill")
+
+
+func _on_animated_sprite_2d_frame_changed() -> void:
+	if animated_sprite_2d.animation == "run" and animated_sprite_2d.frame == 0:
+		var particles = footstep_particles.instantiate()
+		particles.global_position = self.global_position
+		get_parent().add_child(particles)
+		print(particles.global_position)
+		print(self.global_position)
+		pass

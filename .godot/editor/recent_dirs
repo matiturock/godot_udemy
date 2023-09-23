@@ -1,7 +1,13 @@
+res://shaders
+res://Characteres/Player
+C:/Users/Mati/Desktop/godot 4/fonts
+C:/Users/Mati/Desktop/godot 4/godot-dash-main
+res://Characteres/Enemies
+res://Autoloads
+C:/Users/Mati/AppData/Local/Programs/Microsoft VS Code
 res://UI
 res://Levels
 res://Levels/Levels
-res://Characteres/Enemies
 res://Resources/Themes
 res://Resources/Fonts
 res://Collectables/Flag
@@ -9,5 +15,4 @@ res://Resources/Tilemaps
 res://Hazards
 res://Collectables
 res://Controllers
-res://Characteres/Player
 res://Assets/Tilemap

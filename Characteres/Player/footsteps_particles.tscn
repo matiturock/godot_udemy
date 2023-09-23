@@ -1,0 +1,80 @@
+[gd_scene load_steps=8 format=3 uid="uid://ce04qosoi3v5n"]
+
+[ext_resource type="Texture2D" uid="uid://ccfcq816tmxgc" path="res://Assets/Effects/smoke_03.png" id="1_e30fe"]
+
+[sub_resource type="Curve" id="Curve_8f1uf"]
+_data = [Vector2(0.00377358, 0.00624025), 0.0, 0.0, 0, 0, Vector2(0.233962, 0.675507), 1.62086, 1.62086, 0, 0, Vector2(0.498113, 0.716069), -2.03179, -2.03179, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_0ry1g"]
+curve = SubResource("Curve_8f1uf")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_e458f"]
+lifetime_randomness = 0.06
+emission_shape = 1
+emission_sphere_radius = 5.38
+particle_flag_disable_z = true
+direction = Vector3(0, -10, 0)
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 15.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.1
+scale_max = 0.1
+scale_curve = SubResource("CurveTexture_0ry1g")
+
+[sub_resource type="Animation" id="Animation_splkm"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_8vsfy"]
+resource_name = "default"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8xmev"]
+_data = {
+"RESET": SubResource("Animation_splkm"),
+"default": SubResource("Animation_8vsfy")
+}
+
+[node name="FootstepsParticles" type="GPUParticles2D"]
+top_level = true
+z_index = 100
+z_as_relative = false
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_e458f")
+texture = ExtResource("1_e30fe")
+lifetime = 1.5
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "default"
+libraries = {
+"": SubResource("AnimationLibrary_8xmev")
+}

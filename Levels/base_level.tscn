@@ -12,7 +12,9 @@ script = ExtResource("1_pnjn6")
 
 [node name="UILevel" parent="." instance=ExtResource("2_lexv6")]
 
-[node name="Player" parent="." instance=ExtResource("2_yjsv8")]
+[node name="PlayerRoot" type="Node" parent="."]
+
+[node name="Player" parent="PlayerRoot" instance=ExtResource("2_yjsv8")]
 
 [node name="GameCamera" parent="." instance=ExtResource("3_cabei")]
 position = Vector2(0, -9)

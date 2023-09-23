@@ -6,7 +6,7 @@ signal coins_update
 @export var player_scene: PackedScene = preload("res://Characteres/Player/player.tscn")
 @export var level_complete: PackedScene = preload("res://UI/level_complete.tscn")
 
-@onready var current_player: CharacterBody2D = $Player
+@onready var current_player: CharacterBody2D = null
 
 var spawn_position: Vector2 = Vector2.ZERO
 
@@ -15,9 +15,9 @@ var collected_coins: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	register_player(current_player)
 	load_total_coins()
 	load_goal()
+	register_player(get_tree().get_nodes_in_group("player")[0])
 
 
 func load_total_coins() -> void:
@@ -44,8 +44,6 @@ func create_player() -> void:
 
 
 func on_player_die() -> void:
-#	current_player.queue_free()
-#	create_player()
 	get_tree().reload_current_scene()
 
 

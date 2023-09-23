@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://desthofhn1gcu"]
+[gd_scene load_steps=16 format=3 uid="uid://desthofhn1gcu"]
 
 [ext_resource type="Texture2D" uid="uid://baun6smef1aio" path="res://Assets/Characters/character_0000.png" id="1_4ywgp"]
 [ext_resource type="Script" path="res://Characteres/Player/player.gd" id="1_7b043"]
 [ext_resource type="Texture2D" uid="uid://brcxa160dywpc" path="res://Assets/Characters/character_0001.png" id="3_k3ta8"]
+[ext_resource type="Shader" path="res://Characteres/Player/player.gdshader" id="4_wcrla"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lbbbr"]
 size = Vector2(14, 20)
@@ -46,6 +47,44 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_jfqov"]
+resource_name = "die"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vc50b"]
+_data = {
+"die": SubResource("Animation_jfqov")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pidt3"]
+shader = ExtResource("4_wcrla")
+shader_parameter/baseColor = Vector4(0.35, 0.7, 0.54, 0)
+
+[sub_resource type="Curve" id="Curve_xwywy"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.20155, 1), 0.0316211, 0.0316211, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_uut8n"]
+curve = SubResource("Curve_xwywy")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rn60r"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_curve = SubResource("CurveTexture_uut8n")
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 2
 collision_mask = 9
@@ -53,11 +92,13 @@ script = ExtResource("1_7b043")
 hotizontal_desaceletarion = 50.0
 
 [node name="WorldCollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, -10)
 shape = SubResource("RectangleShape2D_lbbbr")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
 [node name="CollectableArea2D" type="Area2D" parent="."]
+visible = false
 collision_layer = 2
 collision_mask = 8
 
@@ -66,7 +107,8 @@ position = Vector2(0, -12)
 shape = SubResource("CircleShape2D_064wc")
 
 [node name="HazardArea2D" type="Area2D" parent="."]
-collision_layer = 0
+visible = false
+collision_layer = 2
 collision_mask = 48
 
 [node name="HazardCollisionShape2D" type="CollisionShape2D" parent="HazardArea2D"]
@@ -75,6 +117,7 @@ shape = SubResource("RectangleShape2D_ejbsa")
 debug_color = Color(0.741176, 0.34902, 0.784314, 0.419608)
 
 [node name="DashArea2D" type="Area2D" parent="."]
+visible = false
 collision_layer = 2
 collision_mask = 0
 
@@ -86,12 +129,28 @@ debug_color = Color(0.827451, 0.337255, 0.541176, 0.419608)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_1xcdu")
-animation = &"idle"
+animation = &"run"
 autoplay = "idle"
 flip_h = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_vc50b")
+}
 
 [node name="CoyoteTimer" type="Timer" parent="."]
 wait_time = 0.2
 one_shot = true
 
+[node name="DashGPUParticles2D" type="GPUParticles2D" parent="."]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_pidt3")
+position = Vector2(0, -12)
+emitting = false
+amount = 15
+process_material = SubResource("ParticleProcessMaterial_rn60r")
+texture = ExtResource("1_4ywgp")
+lifetime = 0.5
+
 [connection signal="area_entered" from="HazardArea2D" to="." method="_on_hazard_area_2d_area_entered"]
+[connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]

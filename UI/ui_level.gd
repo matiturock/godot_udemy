@@ -11,10 +11,5 @@ func _ready() -> void:
 		base_levels[0].coins_update.connect(on_coins_update)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-
 func on_coins_update(total_coins: int, collected_coins: int) -> void:
 	coin_label.text = str(collected_coins, "/", total_coins)
