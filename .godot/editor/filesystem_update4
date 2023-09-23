@@ -1,11 +1,1 @@
-res://Characteres/Enemies/ground_enemy.tscn
-res://Characteres/Player/player.gdshader
-res://Resources/Tilemaps/tile_set.tres
-res://shaders/hit_flash.tres
-res://Characteres/Enemies/ground_enemy_death.tscn
 res://Characteres/Enemies/ground_enemy_death.gd
-res://Characteres/Player/player.tscn
-res://Levels/Levels/level_01.tscn
-res://Collectables/coin.tscn
-res://Levels/base_level.tscn
-res://Characteres/Player/footsteps_particles.tscn

@@ -1,5 +1,5 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1695444333
+::res://::1695444485
 default_bus_layout.tres::AudioBusLayout::5857603042009940087::1684372882::0::1::::<><>::
 icon.svg::CompressedTexture2D::4099702132581749674::1676490660::1676490669::1::::<><>::
 README.md::TextFile::-1::1680652615::0::1::::<><>::
@@ -261,10 +261,10 @@ ground_enemy.gd::GDScript::-1::1695204927::0::1::::GroundEnemy<>CharacterBody2D<
 ground_enemy.tscn::PackedScene::3397851193150572006::1695437274::0::1::::<><>::uid://6xyc2g86f1rj::::res://Assets/Characters/character_0015.png<>res://Characteres/Enemies/ground_enemy.gd<>uid://cv2negvsc4ixy::::res://shaders/hit_flash.tres<>uid://01acu0mdfw2b::::res://Assets/Characters/character_0016.png<>uid://bkwjjwwsd068y::::res://Assets/Characters/character_0017.png
 ground_enemy_death.gd::GDScript::-1::1695437214::0::1::::<>Node2D<>::
 ground_enemy_death.tscn::PackedScene::8215497225013894443::1695437274::0::1::::<><>::uid://bkwjjwwsd068y::::res://Assets/Characters/character_0017.png<>res://Characteres/Enemies/ground_enemy_death.gd<>uid://cv2negvsc4ixy::::res://shaders/hit_flash.tres
-::res://Characteres/Player/::1695437292
+::res://Characteres/Player/::1695444428
 footsteps_particles.tscn::PackedScene::5106996315063825789::1695437274::0::1::::<><>::uid://ccfcq816tmxgc::::res://Assets/Effects/smoke_03.png
 player.gd::GDScript::-1::1695206327::0::1::::Player<>CharacterBody2D<>::
-player.gdshader::Shader::-1::1695437292::0::1::::<><>::
+player.gdshader::Shader::-1::1695444428::0::1::::<><>::
 player.tscn::PackedScene::7478343092011779120::1695437274::0::1::::<><>::uid://baun6smef1aio::::res://Assets/Characters/character_0000.png<>res://Characteres/Player/player.gd<>uid://brcxa160dywpc::::res://Assets/Characters/character_0001.png<>res://Characteres/Player/player.gdshader
 player_death.gd::GDScript::-1::1686142976::0::1::::PlayerDeath<>CharacterBody2D<>::
 player_death.tscn::PackedScene::1752697044638715114::1695198652::0::1::::<><>::uid://baun6smef1aio
